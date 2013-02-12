@@ -1,2 +1,0 @@
-GUM--Grand-Unified-Model
-========================
