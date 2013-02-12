@@ -1,4 +1,4 @@
-#include "physicalvector.h"
+#include "vector3/vector3.h"
 
 #include <cmath>
 
@@ -72,13 +72,18 @@ coord3 vector3::printvector()
 	return coord3(x,y,z);
 	}
 
-void vector3::moveByVector (double& x1, double& y1, double& z1)
+void vector3::moveByVector (double& x1, double& y1, double& z1) const
 	{
 	x1 += x;
   y1 += y;
   z1 += z;
 	}
-
+void vector3::moveByVector (coord3& coord) const
+  {
+  coord.x += x;
+  coord.y += y;
+  coord.z += z;
+  }
 double vector3::findLength()
 	{
   length = sqrt( pow(x,2) + pow (y,2) + pow (z,2) );
@@ -123,11 +128,11 @@ vector3 &vector3::operator*= (const double &var)
 	}
 
 vector3 & vector3::operator /= (const double &var)
-  {    
+  {
   x /= var;
   y /= var;
   z /= var;
-  findLength(); 
+  findLength();
   return *this;
   }
 
@@ -150,8 +155,8 @@ vector3 operator / (vector3 leftvector, const double &var)
   }
 
 double findDistance(vector3 vector1, const vector3 &vector2)
-  { 
-  vector1 -= vector2; 
+  {
+  vector1 -= vector2;
   return vector1.length;
   }
 
@@ -163,7 +168,7 @@ double vector3::dot(const vector3& left, const vector3& right)
 vector3 vector3::cross (vector3 left, const vector3& right)
   {
   left.setVector(
-                  left.y * right.z - right.y * left.z, 
+                  left.y * right.z - right.y * left.z,
                   left.z * right.x - right.z * left.x,
                   left.x * right.y - right.x * left.y
                 );
@@ -174,10 +179,17 @@ void vector3::clear()
   {
   x = y = z = length = 0;
   }
-  
-  coord3 vector3::moveByVector (coord3& coord)
-  {
-  coord.x += x;
-  coord.y += y;
-  coord.z += z;
-  }
+
+vector3 vector3::operator+(const vector3 &right) const
+{
+    vector3 ret(right);
+    ret+=right;
+    return ret;
+}
+
+vector3 vector3::operator-(const vector3 &right) const
+{
+    vector3 ret(right);
+    ret-=right;
+    return ret;
+}

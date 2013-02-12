@@ -11,21 +11,21 @@ struct coord3
   coord3(): x(0), y(0), z(0) {}
   /**x, y, z are initialized to x1, y1, z1, respectively.**/
   coord3(const double& x1, const double& y1, const double& z1): x(x1), y(y1), z(z1) {}
-  
+
   double x, y, z;
   };
 
 /**
 The vector3 class is a three dimensional vector that assumes all vectors are bound vectors. It has functions for most common usages, including scaling, adding, crossing, and dotting. The length of the vector is calculated after any arithmetic function. Operators are overloaded, but binary operators are not, due to unresolved issues. Any help would be grateful.
 
-Directly accessing x, y, and z is not recommended. 
+Directly accessing x, y, and z is not recommended.
 **/
 
 class vector3
 {
 public:
   double x,y,z;
-  
+
    /**The default constructor. x,y,z, and length are initialized as 0.**/
   vector3();
   /**The contents of vector3 are assigned as x1, y1, and z1, and the length is calculated.**/
@@ -52,17 +52,17 @@ public:
   coord3 printvector(); //prints coords
 
   /**It effectively moves a particle (x1,y1,z1) by the vector, assigning (x1+x, y1+y, z1+z) to the respective arguments.**/
-  void moveByVector (double& x1, double& y1, double& z1); // moves a point by this vector
+  void moveByVector (double& x1, double& y1, double& z1) const; // moves a point by this vector
   /**Same as the double version, but accepts a coord3.**/
-  void moveByVector (coord3& coord);
+  void moveByVector (coord3& coord) const;
   /**The length of the vector is calculated. This function also returns a double.**/
   double findLength(); //get length of vector. Also sets it.
-	
+
 	/**The two vectors are dotted, and the dot product is returned.**/
   static double dot(const vector3& left, const vector3& right); //dotsum of vector
   /**The two vectors are crossed, and the cross product is returned.**/
   static vector3 cross (vector3 left, const vector3& right);
-	 
+
   /**+= is overloaded. Adds addedvector's x, y, z to this vector's x, y, z, and calls findLength(). This operator returns *this. **/
   vector3 & operator+= (const vector3 &addedvector);
   /**-= is overloaded. This function is like +=, but subtracts instead of adding.**/
@@ -71,4 +71,9 @@ public:
   vector3 & operator*= (const double &var);
   ///** */= is overloaded. This function is equivalent to this->divide(var).**/
   vector3 & operator /= (const double &var);
+
+  /** sum of two vectors, implemented using += **/
+  vector3 operator+(const vector3 &right) const;
+  /** difference of two vectors, implemented using -= **/
+  vector3 operator-(const vector3 &right) const;
 };
