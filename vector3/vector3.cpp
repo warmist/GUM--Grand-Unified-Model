@@ -43,9 +43,9 @@ void vector3::normalize()
 	if (length != 0)
 		{
 		x = x / length;
-    y = y / length;
-    z = z / length;
-    length = 1;
+        y = y / length;
+        z = z / length;
+        length = 1;
 		}
 	}
 
@@ -173,4 +173,11 @@ vector3 vector3::cross (vector3 left, const vector3& right)
 void vector3::clear()
   {
   x = y = z = length = 0;
+  }
+  
+  coord3 vector3::moveByVector (coord3& coord)
+  {
+  coord.x += x;
+  coord.y += y;
+  coord.z += z;
   }
